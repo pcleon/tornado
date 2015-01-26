@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head><title>手机</title></head>
+  <body>
+      <link rel=stylesheet type=text/css href="{{ static_url("style.css") }}">
+      <link rel=stylesheet type=text/css href="{{ static_url("table.css") }}">
+      <form method="post" action="/sms">
+      <div id="container" class=page>
+      <p>手机号<br><input type="text" name="phone"></p>
+      <input type="submit" value="查询">
+      </form>
+      <br/>
+      <p> 手机号: {{ phone }}<br>
+      <p> 归属地: {{ smsdata['bas'][0] }} <br>
+      <p>所属bas: {{ smsdata['bas'][1] }}<br>
+      <div class=metanav>
+      <table >
+        <tr  class="spec">
+        <td>下发时间</td>
+        <td>密码</td>
+        </tr>
+        {% for f in smsdata['sms'] %}
+        <tr  class=specalt>
+        <td>{{ f[0] }}</td>
+        <td>{{ f[1] }}</td>
+        </tr>
+        {% end %}
+      </table>
+</div>
+  </div>
+  </body>
+</html>

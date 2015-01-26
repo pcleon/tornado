@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head><title>图</title></head>
+  <body>
+        <form method="post" action="/">
+        <p>名称<br><input type="text" name="basname"></p>
+        <input type="submit" value="提交">
+        </form>
+  <h1>{{basname}}</h1>
+  <div id="container" style="height: 400px; min-width: 600px">
+    <script type="text/javascript" src="{{ static_url("jquery.min.js") }}"></script>
+    <script type="text/javascript" src="{{ static_url("highcharts.js") }}"></script>
+    <script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        title: {
+            text: "{{basname}}",
+            x: -20 //center
+        },
+        subtitle: {
+            text: '每月时长 (h)',
+            x: -20
+        },
+        xAxis: {
+            title: {
+                text: '日期(日)',
+            },
+            //categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: {{ lenth }}
+        },
+        yAxis: {
+            title: {
+                text: '时长',
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: 'h'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: {% raw fdata %}
+    });
+});
+				
+    </script>
+  </div>
+    <br/>
+    {% for f in fdata %}
+    <p>{{f['name']}}: {{f['data']}}</p>
+    {% end %}
+
+  </body>
+</html>
